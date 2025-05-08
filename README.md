@@ -1,186 +1,157 @@
-# fast\_stock
+# Inventory Management System API
 
-**fast\_stock** is an open-source, high-performance inventory management API built with **FastAPI**. It is designed to provide a scalable backend for managing stock, categories, and inventory operations. Whether you're building a small inventory system or integrating into a larger solution, `fast_stock` provides the foundational structure to get started.
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+
+A scalable inventory management system built with FastAPI and PostgreSQL, following best practices for enterprise applications.
 
 ## Features
 
-* 🚀 FastAPI-powered RESTful API for managing inventory
-* 📦 CRUD operations for **Items**, **Categories**, and **Inventory**
-* 🛡️ Role-based access control and authentication
-* 🧩 Modular architecture (separate layers for core, services, DB, and API)
-* 🔍 Full support for asynchronous operations and background tasks
-* 🧪 Built-in unit tests and test structure
-* 📁 Clean, scalable folder structure for easier management
-* 🌱 Ready to use with Docker for quick deployment
-
-## Tech Stack
-
-* **FastAPI** for building the API
-* **SQLAlchemy** for ORM-based database management
-* **Pydantic** for data validation and serialization
-* **PostgreSQL** as the default database (can be swapped out with others)
-* **Alembic** for database migrations
-* **Uvicorn** for ASGI server
-
----
-
-## Installation
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/your-username/fast_stock.git
-cd fast_stock
-```
-
-### 2. Create a Virtual Environment
-
-For Python 3.x:
-
-```bash
-python -m venv .venv
-```
-
-### 3. Activate the Virtual Environment
-
-* **On Windows (PowerShell):**
-
-  ```bash
-  .\venv\Scripts\Activate.ps1
-  ```
-
-* **On macOS/Linux:**
-
-  ```bash
-  source .venv/bin/activate
-  ```
-
-### 4. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 5. Set up the Database
-
-1. Ensure you have a **PostgreSQL** instance running and create a database (e.g., `fast_stock`).
-2. Update the `.env` file with your database connection details.
-
-```ini
-DATABASE_URL=postgresql://username:password@localhost/fast_stock
-```
-
-3. Run database migrations using Alembic:
-
-```bash
-alembic upgrade head
-```
-
-## Running the Application
-
-Once the environment is set up, you can start the FastAPI application:
-
-```bash
-uvicorn app.main:app --reload
-```
-
-* **API Documentation**: Open your browser and go to [http://localhost:8000/docs](http://localhost:8000/docs) for the interactive API docs powered by **Swagger UI**.
-* **ReDoc Documentation**: You can also view the **ReDoc** documentation at [http://localhost:8000/redoc](http://localhost:8000/redoc).
-
-## Running Tests
-
-To run the test suite, use `pytest`:
-
-```bash
-pytest
-```
-
-### Running Tests with Coverage:
-
-To see coverage of your tests:
-
-```bash
-pytest --cov=app tests/
-```
-
-## Docker Setup
-
-If you prefer using Docker for deployment or local development, you can use the provided `Dockerfile` and `docker-compose.yml` for easy containerization.
-
-### 1. Build and Run the Docker Containers
-
-```bash
-docker-compose up --build
-```
-
-This will start the FastAPI app along with the PostgreSQL database in separate containers.
-
----
+- **RESTful API** with proper HTTP status codes
+- **JWT Authentication** (OAuth2 with Password Bearer)
+- **Database Models** for Items, Categories, and Inventory
+- **CRUD Operations** with validation
+- **Dockerized** for easy deployment
+- **PostgreSQL** backend with Alembic migrations
+- **Automated Testing** ready
+- **Production-ready** configuration
 
 ## Project Structure
 
 ```
-fast_stock/
-│
+inventory_api/
 ├── .venv/                     # Virtual environment
-│   ├── bin/                   # (or Scripts/ on Windows)
-│   ├── lib/
-│   └── pyvenv.cfg
-├── docker/                    # Docker-specific files
-│   ├── db/                    # Database initialization scripts
-│   │   └── init.sql           # Initial SQL schema/data
-│   └── web/                   # Web service specific files
-│       └── entrypoint.sh      # Custom entrypoint script
-├── app/                       # Main application code
-│   ├── __init__.py
-│   ├── main.py                # FastAPI app initialization
-│   ├── core/                  # Core configurations
-│   │   ├── config.py
-│   │   ├── security.py
-│   │   └── exceptions.py
-│   ├── db/                    # Database related
-│   │   ├── base.py
-│   │   ├── session.py
-│   │   └── models/
-│   ├── schemas/               # Pydantic schemas
+├── docker/                    # Docker configurations
+│   ├── db/                    # DB initialization scripts
+│   └── web/                   # Web service scripts
+├── app/                       # Main application
+│   ├── core/                  # Configurations and security
+│   ├── db/                    # Database models and session
+│   ├── schemas/               # Pydantic models
 │   ├── api/                   # API endpoints
 │   ├── services/              # Business logic
-│   └── utils/                 # Utilities
-├── tests/                     # Test files
-├── migrations/                # Database migrations (or alembic/)
-│   ├── versions/
-│   └── env.py
-├── .dockerignore              # Files to ignore in Docker builds
-├── .env                       # Development environment variables
-├── .env.prod                  # Production environment variables
-├── .gitignore
-├── docker-compose.yml         # Main compose file
-├── docker-compose.prod.yml    # Production compose file
-├── Dockerfile                 # Main Dockerfile
-├── Dockerfile.prod            # Production Dockerfile
-├── entrypoint.sh              # Application entrypoint
-├── requirements.txt           # Development requirements
-├── requirements.prod.txt      # Production requirements
-└── README.md                  # This file
+│   └── utils/                 # Helper functions
+├── tests/                     # Test cases
+├── migrations/                # Database migrations
+├── .env                       # Environment variables
+├── docker-compose.yml         # Development compose file
+├── Dockerfile                 # Development Dockerfile
+└── requirements.txt           # Dependencies
 ```
 
----
+## Getting Started
+
+### Prerequisites
+
+- Python 3.9+
+- Docker and Docker Compose
+- PostgreSQL (for local development without Docker)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/inventory-api.git
+   cd inventory-api
+   ```
+
+2. **Set up virtual environment**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # Linux/MacOS
+   .venv\Scripts\activate     # Windows
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configure environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your credentials
+   ```
+
+### Running with Docker (Recommended)
+
+```bash
+docker-compose up -d --build
+```
+
+The API will be available at `http://localhost:8000`
+
+### Running Locally
+
+1. Start PostgreSQL service
+2. Run migrations:
+   ```bash
+   alembic upgrade head
+   ```
+3. Start the application:
+   ```bash
+   uvicorn app.main:app --reload
+   ```
+
+## API Documentation
+
+Interactive documentation is available at:
+
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+
+## Endpoints
+
+| Method | Endpoint                | Description                     |
+|--------|-------------------------|---------------------------------|
+| GET    | /items/                 | List all items                  |
+| POST   | /items/                 | Create new item                 |
+| GET    | /items/{item_id}        | Get item details                |
+| PUT    | /items/{item_id}        | Update item                     |
+| DELETE | /items/{item_id}        | Delete item                     |
+| GET    | /categories/            | List all categories             |
+| POST   | /categories/            | Create new category             |
+
+## Environment Variables
+
+| Variable              | Description                     | Default       |
+|-----------------------|---------------------------------|---------------|
+| POSTGRES_SERVER       | Database host                   | localhost     |
+| POSTGRES_USER         | Database user                   | postgres      |
+| POSTGRES_PASSWORD     | Database password               | postgres      |
+| POSTGRES_DB           | Database name                   | inventory     |
+| SECRET_KEY            | JWT secret key                  | changeme      |
+| ACCESS_TOKEN_EXPIRE   | Token expiration in minutes     | 30            |
+
+## Testing
+
+Run tests with:
+```bash
+pytest
+```
+
+## Deployment
+
+For production deployment:
+```bash
+docker-compose -f docker-compose.prod.yml up -d --build
+```
 
 ## Contributing
 
-We welcome contributions! If you'd like to contribute to `fast_stock`, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and test thoroughly.
-4. Create a pull request.
-
----
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-`fast_stock` is licensed under the MIT License. See [LICENSE](LICENSE) for more details.
+Distributed under the MIT License. See `LICENSE` for more information.
 
----
+## Contact
 
-This updated `README.md` reflects the structure you've shared. Would you like any further customizations or clarifications in the description?
+Your Name - your.email@example.com
+
+Project Link: [https://github.com/yourusername/inventory-api](https://github.com/yourusername/inventory-api)
