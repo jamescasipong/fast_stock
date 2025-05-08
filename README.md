@@ -1,9 +1,6 @@
-
 # fast\_stock
 
-**fast\_stock** is an open-source, high-performance inventory management API built with **FastAPI**, designed for businesses, e-commerce platforms, or anyone needing to track items, stock levels, categories, and manage inventory efficiently.
-
-Whether you're building a small inventory system or integrating into a larger solution, `fast_stock` provides the foundational structure to help you get started quickly and easily.
+**fast\_stock** is an open-source, high-performance inventory management API built with **FastAPI**. It is designed to provide a scalable backend for managing stock, categories, and inventory operations. Whether you're building a small inventory system or integrating into a larger solution, `fast_stock` provides the foundational structure to get started.
 
 ## Features
 
@@ -25,6 +22,8 @@ Whether you're building a small inventory system or integrating into a larger so
 * **Alembic** for database migrations
 * **Uvicorn** for ASGI server
 
+---
+
 ## Installation
 
 ### 1. Clone the Repository
@@ -39,7 +38,7 @@ cd fast_stock
 For Python 3.x:
 
 ```bash
-python -m venv venv
+python -m venv .venv
 ```
 
 ### 3. Activate the Virtual Environment
@@ -53,7 +52,7 @@ python -m venv venv
 * **On macOS/Linux:**
 
   ```bash
-  source venv/bin/activate
+  source .venv/bin/activate
   ```
 
 ### 4. Install Dependencies
@@ -64,14 +63,14 @@ pip install -r requirements.txt
 
 ### 5. Set up the Database
 
-* Make sure you have a PostgreSQL instance running, and create a database (e.g., `fast_stock`).
-* Update your `.env` file with the database connection URL.
+1. Ensure you have a **PostgreSQL** instance running and create a database (e.g., `fast_stock`).
+2. Update the `.env` file with your database connection details.
 
 ```ini
 DATABASE_URL=postgresql://username:password@localhost/fast_stock
 ```
 
-* Run migrations using Alembic:
+3. Run database migrations using Alembic:
 
 ```bash
 alembic upgrade head
@@ -123,31 +122,46 @@ This will start the FastAPI app along with the PostgreSQL database in separate c
 ```
 fast_stock/
 │
-├── app/
-│   ├── api/
-│   │   ├── v1/
-│   │   │   └── endpoints/
-│   │   └── api.py
-│   ├── core/
+├── .venv/                     # Virtual environment
+│   ├── bin/                   # (or Scripts/ on Windows)
+│   ├── lib/
+│   └── pyvenv.cfg
+├── docker/                    # Docker-specific files
+│   ├── db/                    # Database initialization scripts
+│   │   └── init.sql           # Initial SQL schema/data
+│   └── web/                   # Web service specific files
+│       └── entrypoint.sh      # Custom entrypoint script
+├── app/                       # Main application code
+│   ├── __init__.py
+│   ├── main.py                # FastAPI app initialization
+│   ├── core/                  # Core configurations
 │   │   ├── config.py
-│   │   └── security.py
-│   ├── db/
-│   │   ├── models/
-│   │   └── session.py
-│   ├── schemas/
-│   ├── services/
-│   ├── utils/
-│   └── main.py
-├── alembic/
-├── tests/
-│   ├── test_items.py
-│   ├── test_inventory.py
-│   └── test_categories.py
-├── .env
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-└── README.md
+│   │   ├── security.py
+│   │   └── exceptions.py
+│   ├── db/                    # Database related
+│   │   ├── base.py
+│   │   ├── session.py
+│   │   └── models/
+│   ├── schemas/               # Pydantic schemas
+│   ├── api/                   # API endpoints
+│   ├── services/              # Business logic
+│   └── utils/                 # Utilities
+├── tests/                     # Test files
+├── migrations/                # Database migrations (or alembic/)
+│   ├── versions/
+│   └── env.py
+├── .dockerignore              # Files to ignore in Docker builds
+├── .env                       # Development environment variables
+├── .env.prod                  # Production environment variables
+├── .gitignore
+├── docker-compose.yml         # Main compose file
+├── docker-compose.prod.yml    # Production compose file
+├── Dockerfile                 # Main Dockerfile
+├── Dockerfile.prod            # Production Dockerfile
+├── entrypoint.sh              # Application entrypoint
+├── requirements.txt           # Development requirements
+├── requirements.prod.txt      # Production requirements
+└── README.md                  # This file
 ```
 
 ---
@@ -169,4 +183,4 @@ We welcome contributions! If you'd like to contribute to `fast_stock`, please fo
 
 ---
 
-Feel free to adapt and adjust it to fit your project’s specifics! Would you like me to customize any part of it or add something more specific?
+This updated `README.md` reflects the structure you've shared. Would you like any further customizations or clarifications in the description?
